@@ -1,0 +1,10 @@
+{
+  "name": "labul",
+  "description": "LabUL Proxmox operations: the template round (Packer -> promote -> repins) and pvectl for agents",
+  "version": "0.1.0",
+  "author": {
+    "name": "stuttgart-things"
+  },
+  "repository": "https://github.com/stuttgart-things/claude-plugins",
+  "license": "Apache-2.0"
+}

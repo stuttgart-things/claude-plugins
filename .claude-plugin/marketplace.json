@@ -1,0 +1,22 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "stuttgart-things",
+  "description": "Claude Code plugins for stuttgart-things: service development and release, LabUL Proxmox operations",
+  "owner": {
+    "name": "stuttgart-things"
+  },
+  "plugins": [
+    {
+      "name": "sthings-dev",
+      "description": "Build and release stuttgart-things Go services: repo bootstrap like claims/pvectl, start at v0.1.0, Go tests via Dagger",
+      "source": "./plugins/sthings-dev",
+      "category": "development"
+    },
+    {
+      "name": "labul",
+      "description": "LabUL Proxmox operations: the template round (Packer -> promote -> repins) and pvectl for agents",
+      "source": "./plugins/labul",
+      "category": "development"
+    }
+  ]
+}

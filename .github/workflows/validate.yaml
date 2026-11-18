@@ -1,0 +1,33 @@
+---
+name: Validate plugins
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install Claude Code
+        run: npm install -g @anthropic-ai/claude-code
+      - name: Validate marketplace and plugins
+        run: |
+          set -euo pipefail
+          claude plugin validate .
+          for p in plugins/*/; do claude plugin validate "$p"; done
+      - name: Plugins listed in marketplace.json exist
+        run: |
+          set -euo pipefail
+          for src in $(jq -r '.plugins[].source' .claude-plugin/marketplace.json); do
+            test -f "$src/.claude-plugin/plugin.json" || { echo "missing: $src"; exit 1; }
+          done

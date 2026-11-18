@@ -1,0 +1,10 @@
+{
+  "name": "sthings-dev",
+  "description": "Build and release stuttgart-things Go services: repo bootstrap like claims/pvectl, start at v0.1.0, Go tests via Dagger",
+  "version": "0.1.0",
+  "author": {
+    "name": "stuttgart-things"
+  },
+  "repository": "https://github.com/stuttgart-things/claude-plugins",
+  "license": "Apache-2.0"
+}
