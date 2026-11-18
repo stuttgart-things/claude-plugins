@@ -45,7 +45,7 @@ sops exec-env $E 'pvectl --insecure vms ubuntu26 -o json'
 | `ha [<node>] <vmid>` | no | HA state, tasks, log |
 | `repin --os <os> --template N [--copy M] [--repo <checkout>]` | no | the changes in stuttgart-things |
 | `migrate <node> <vmid> <target> [--targetstorage S]` | yes | |
-| `template promote <vmid> --to ul-pve11 --fs9100-copy [--repo <checkout>] [--target-storage S]` | yes | `plan` with steps, new VMID, repins |
+| `template promote <vmid> --to ul-pve11 --fs9100-copy [--repo <checkout>] [--target-storage S]` | yes | `plan` with steps, new VMID, repins, `warnings` (older/pinned source) |
 | `start`, `ha-recover` | yes | |
 
 The details are in `pvectl <cmd> --help` (examples for both modes).
@@ -58,7 +58,7 @@ The details are in `pvectl <cmd> --help` (examples for both modes).
 | 1 | API/network/TLS | check `--insecure` and the VPN, then report |
 | 2 | usage: missing flag/env, write without `--yes` | read the `flag` field of the JSON error and add the flag. Don't add `--yes` without an OK |
 | 3 | not found (also `vms` without a match: `[]`) | check the filter/VMID |
-| 4 | config check failed / promote source is not a template | report the checks; `--skip-checks` only on the user's instruction |
+| 4 | config check failed / promote source is not a template / promote with `warnings` without `--allow-old` | report the checks or warnings; `--skip-checks` and `--allow-old` only on the user's instruction |
 | 5 | Proxmox task failed | `tasks --follow <UPID>` for the log, report |
 | 130 | aborted | the task may keep running: `tasks --follow` |
 
