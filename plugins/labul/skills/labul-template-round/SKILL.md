@@ -34,15 +34,15 @@ from `pvectl vms <os> --templates -o json`.
 
 ```bash
 E=~/.secrets.d/labul/proxmox.env
-sops exec-env $E 'pvectl --insecure config <vmid> -o json'          # cpu host, agent; no cloud-init drive on a template is expected (✓)
-sops exec-env $E 'pvectl --insecure template promote <vmid> --to ul-pve11 --fs9100-copy --repo <worktree> --dry-run -o json'
+sops exec-env $E 'pvectl config <vmid> -o json'          # cpu host, agent; no cloud-init drive on a template is expected (✓)
+sops exec-env $E 'pvectl template promote <vmid> --to ul-pve11 --fs9100-copy --repo <worktree> --dry-run -o json'
 ```
 
 Show the user the plan (steps, the copy's new VMID and name `<name>-fs9100`,
 the repins). **After the OK**:
 
 ```bash
-sops exec-env $E 'pvectl --insecure template promote <vmid> --to ul-pve11 --fs9100-copy --repo <worktree> --yes -o json'
+sops exec-env $E 'pvectl template promote <vmid> --to ul-pve11 --fs9100-copy --repo <worktree> --yes -o json'
 ```
 
 - What it does: migrate to ul-pve11, then a full clone from ul-pve11 with
