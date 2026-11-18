@@ -34,7 +34,7 @@ from `pvectl vms <os> --templates -o json`.
 
 ```bash
 E=~/.secrets.d/labul/proxmox.env
-sops exec-env $E 'pvectl --insecure config <vmid> -o json'          # cpu host, agent; a missing cloud-init drive is only a warning on templates
+sops exec-env $E 'pvectl --insecure config <vmid> -o json'          # cpu host, agent; no cloud-init drive on a template is expected (✓)
 sops exec-env $E 'pvectl --insecure template promote <vmid> --to ul-pve11 --fs9100-copy --repo <worktree> --dry-run -o json'
 ```
 
@@ -54,6 +54,11 @@ sops exec-env $E 'pvectl --insecure template promote <vmid> --to ul-pve11 --fs91
   are skipped.
 - Exit 4 (checks): report to the user. Use `--skip-checks` only on their
   instruction. If cpu is not `host`, fix the Packer build (#4650).
+- `warnings` in the plan (pvectl >= 0.2.0): a newer template of the same OS
+  exists, or the source is still pinned (with `--repo`) and would be
+  migrated. That almost always means the wrong VMID. Show the warnings and
+  ask. `--allow-old` only on the user's explicit instruction. Without it, a
+  run with warnings exits with 4.
 
 ## 3. Repin PRs
 
