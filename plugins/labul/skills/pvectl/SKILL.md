@@ -27,11 +27,19 @@ other tools:
 
 ```bash
 E=~/.secrets.d/labul/proxmox.env
-sops exec-env $E 'pvectl --insecure vms ubuntu26 -o json'
+sops exec-env $E 'pvectl vms ubuntu26 -o json'
 ```
 
-`--insecure` because the lab CA is not in the system store (alternative:
-`PVE_CA_CERT`). Install: `gh release download -R stuttgart-things/pvectl -p
+TLS (pvectl >= 0.4.0): the certificate is pinned once per machine with
+`pvectl tls trust` (`~/.config/pvectl/known_hosts`), or `PVE_CA_CERT` points
+at the cluster CA. **No `--insecure`.** On a TLS error `pvectl tls -o json`
+shows the `trust` state:
+- `untrusted`: tell the user to run `pvectl tls trust` and compare the
+  fingerprint with the web UI. Never pin with `--yes` yourself.
+- `changed`: **stop** and report. It is either a renewal or someone in
+  between, and the user decides.
+
+Install: `gh release download -R stuttgart-things/pvectl -p
 'pvectl_*_linux_amd64.tar.gz' -O - | tar xz pvectl`.
 
 ## Commands
@@ -55,7 +63,7 @@ The details are in `pvectl <cmd> --help` (examples for both modes).
 | Code | Meaning | Agent reaction |
 | --- | --- | --- |
 | 0 | ok, including "nothing to do" | |
-| 1 | API/network/TLS | check `--insecure` and the VPN, then report |
+| 1 | API/network/TLS | TLS: `pvectl tls -o json` (see above); else check the VPN, then report |
 | 2 | usage: missing flag/env, write without `--yes` | read the `flag` field of the JSON error and add the flag. Don't add `--yes` without an OK |
 | 3 | not found (also `vms` without a match: `[]`) | check the filter/VMID |
 | 4 | config check failed / promote source is not a template / promote with `warnings` without `--allow-old` | report the checks or warnings; `--skip-checks` and `--allow-old` only on the user's instruction |
