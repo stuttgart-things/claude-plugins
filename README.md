@@ -9,6 +9,7 @@ everyday platform work, versioned and installed with `/plugin`.
 /plugin marketplace add stuttgart-things/claude-plugins
 /plugin install sthings-dev@stuttgart-things
 /plugin install labul@stuttgart-things
+/plugin install portal@stuttgart-things
 ```
 
 Or from the shell: `claude plugin marketplace add stuttgart-things/claude-plugins`,
@@ -40,6 +41,7 @@ Claude Code is offered the marketplace and the plugins:
 | --- | --- | --- |
 | [`sthings-dev`](plugins/sthings-dev) | `go-service-bootstrap`, `semver-start-v0`, `dagger-go-test` | building and releasing Go services like claims/pvectl |
 | [`labul`](plugins/labul) | `labul-template-round`, `pvectl` | LabUL Proxmox: template round, pvectl for agents |
+| [`portal`](plugins/portal) | `portal-lookup`, `portal-vm-status`, `portal-templates` | the developer portal (Backstage) through its MCP server: owners, docs, templates, live VM state |
 
 In Claude Code the skills are named `<plugin>:<skill>`, e.g.
 `sthings-dev:semver-start-v0`. Claude loads them by their description when
