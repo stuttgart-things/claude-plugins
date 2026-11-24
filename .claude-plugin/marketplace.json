@@ -1,7 +1,7 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "stuttgart-things",
-  "description": "Claude Code plugins for stuttgart-things: service development and release, LabUL Proxmox operations",
+  "description": "Claude Code plugins for stuttgart-things: service development and release, LabUL Proxmox operations, the developer portal",
   "owner": {
     "name": "stuttgart-things"
   },
@@ -16,6 +16,12 @@
       "name": "labul",
       "description": "LabUL Proxmox operations: the template round (Packer -> promote -> repins) and pvectl for agents",
       "source": "./plugins/labul",
+      "category": "development"
+    },
+    {
+      "name": "portal",
+      "description": "Ask the stuttgart-things developer portal (Backstage MCP server): owners, systems, docs, templates and live VM state",
+      "source": "./plugins/portal",
       "category": "development"
     }
   ]

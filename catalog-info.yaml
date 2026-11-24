@@ -13,3 +13,253 @@ spec:
   type: library
   lifecycle: experimental
   owner: group:default/platform-team
+---
+apiVersion: backstage.io/v1alpha1
+kind: AiResource
+metadata:
+  name: dagger-go-test
+  title: "sthings-dev:dagger-go-test"
+  description: "Run Go tests of a stuttgart-things repo through the Dagger Go module (go test is broken in the dev sandbox), including finding a live SSH agent socket."
+  annotations:
+    github.com/project-slug: stuttgart-things/claude-plugins
+    backstage.io/source-location: url:https://github.com/stuttgart-things/claude-plugins/tree/main/plugins/sthings-dev/skills/dagger-go-test/
+  tags:
+    - claude-code
+    - skill
+    - sthings-dev
+spec:
+  type: skill
+  lifecycle: experimental
+  owner: group:default/platform-team
+  agents:
+    - claude-code
+---
+apiVersion: backstage.io/v1alpha1
+kind: AiResource
+metadata:
+  name: go-service-bootstrap
+  title: "sthings-dev:go-service-bootstrap"
+  description: "Create a new stuttgart-things Go service or CLI repo \"like claims\" - layout, Taskfile, workflows from github-workflow-templates, release gate, goreleaser/ko, renovate, catalog-info - and get it to..."
+  annotations:
+    github.com/project-slug: stuttgart-things/claude-plugins
+    backstage.io/source-location: url:https://github.com/stuttgart-things/claude-plugins/tree/main/plugins/sthings-dev/skills/go-service-bootstrap/
+  tags:
+    - claude-code
+    - skill
+    - sthings-dev
+spec:
+  type: skill
+  lifecycle: experimental
+  owner: group:default/platform-team
+  agents:
+    - claude-code
+---
+apiVersion: backstage.io/v1alpha1
+kind: AiResource
+metadata:
+  name: semver-start-v0
+  title: "sthings-dev:semver-start-v0"
+  description: "Make a new service/repo with semantic-release start at v0.1.0 instead of v1.0.0."
+  annotations:
+    github.com/project-slug: stuttgart-things/claude-plugins
+    backstage.io/source-location: url:https://github.com/stuttgart-things/claude-plugins/tree/main/plugins/sthings-dev/skills/semver-start-v0/
+  tags:
+    - claude-code
+    - skill
+    - sthings-dev
+spec:
+  type: skill
+  lifecycle: experimental
+  owner: group:default/platform-team
+  agents:
+    - claude-code
+---
+apiVersion: backstage.io/v1alpha1
+kind: AiResource
+metadata:
+  name: sthings-dev-plugin
+  title: "sthings-dev@stuttgart-things"
+  description: "Build and release stuttgart-things Go services: repo bootstrap like claims/pvectl, start at v0.1.0, Go tests via Dagger"
+  annotations:
+    github.com/project-slug: stuttgart-things/claude-plugins
+    backstage.io/source-location: url:https://github.com/stuttgart-things/claude-plugins/tree/main/plugins/sthings-dev/
+  tags:
+    - claude-code
+    - plugin
+spec:
+  type: plugin
+  lifecycle: experimental
+  owner: group:default/platform-team
+  version: "0.1.0"
+  skills:
+    - airesource:default/dagger-go-test
+    - airesource:default/go-service-bootstrap
+    - airesource:default/semver-start-v0
+---
+apiVersion: backstage.io/v1alpha1
+kind: AiResource
+metadata:
+  name: labul-template-round
+  title: "labul:labul-template-round"
+  description: "Run a LabUL Proxmox template round end to end - Packer build on ul-pve01, pvectl template promote (migrate to ul-pve11, FS9100 copy), then the repin PRs (proxmoxvm chart -> flux release -> flux-inf..."
+  annotations:
+    github.com/project-slug: stuttgart-things/claude-plugins
+    backstage.io/source-location: url:https://github.com/stuttgart-things/claude-plugins/tree/main/plugins/labul/skills/labul-template-round/
+  tags:
+    - claude-code
+    - skill
+    - labul
+spec:
+  type: skill
+  lifecycle: experimental
+  owner: group:default/platform-team
+  agents:
+    - claude-code
+---
+apiVersion: backstage.io/v1alpha1
+kind: AiResource
+metadata:
+  name: pvectl
+  title: "labul:pvectl"
+  description: "Use pvectl (stuttgart-things/pvectl) to query and change LabUL Proxmox - VMs, templates, configs, tasks, migrate, HA, template promote - safely from an agent."
+  annotations:
+    github.com/project-slug: stuttgart-things/claude-plugins
+    backstage.io/source-location: url:https://github.com/stuttgart-things/claude-plugins/tree/main/plugins/labul/skills/pvectl/
+  tags:
+    - claude-code
+    - skill
+    - labul
+spec:
+  type: skill
+  lifecycle: experimental
+  owner: group:default/platform-team
+  agents:
+    - claude-code
+---
+apiVersion: backstage.io/v1alpha1
+kind: AiResource
+metadata:
+  name: labul-plugin
+  title: "labul@stuttgart-things"
+  description: "LabUL Proxmox operations: the template round (Packer -> promote -> repins) and pvectl for agents"
+  annotations:
+    github.com/project-slug: stuttgart-things/claude-plugins
+    backstage.io/source-location: url:https://github.com/stuttgart-things/claude-plugins/tree/main/plugins/labul/
+  tags:
+    - claude-code
+    - plugin
+spec:
+  type: plugin
+  lifecycle: experimental
+  owner: group:default/platform-team
+  version: "0.3.0"
+  skills:
+    - airesource:default/labul-template-round
+    - airesource:default/pvectl
+---
+apiVersion: backstage.io/v1alpha1
+kind: AiResource
+metadata:
+  name: portal-lookup
+  title: "portal:portal-lookup"
+  description: "Answer questions about stuttgart-things software and infrastructure from the developer portal (Backstage) through its MCP server - who owns a component, API, VM, cluster or template, which system i..."
+  annotations:
+    github.com/project-slug: stuttgart-things/claude-plugins
+    backstage.io/source-location: url:https://github.com/stuttgart-things/claude-plugins/tree/main/plugins/portal/skills/portal-lookup/
+  tags:
+    - claude-code
+    - skill
+    - portal
+spec:
+  type: skill
+  lifecycle: experimental
+  owner: group:default/platform-team
+  agents:
+    - claude-code
+---
+apiVersion: backstage.io/v1alpha1
+kind: AiResource
+metadata:
+  name: portal-templates
+  title: "portal:portal-templates"
+  description: "Find the right developer-portal (Backstage) Scaffolder template or offering for what the user wants to order or create - a VM, a cluster, a Crossplane claim, a repo, a change or deletion request -..."
+  annotations:
+    github.com/project-slug: stuttgart-things/claude-plugins
+    backstage.io/source-location: url:https://github.com/stuttgart-things/claude-plugins/tree/main/plugins/portal/skills/portal-templates/
+  tags:
+    - claude-code
+    - skill
+    - portal
+spec:
+  type: skill
+  lifecycle: experimental
+  owner: group:default/platform-team
+  agents:
+    - claude-code
+---
+apiVersion: backstage.io/v1alpha1
+kind: AiResource
+metadata:
+  name: portal-vm-status
+  title: "portal:portal-vm-status"
+  description: "Get the current state of stuttgart-things VMs (Proxmox, vSphere, Harvester) live from the hypervisor through the developer portal's MCP server - running or stopped, uptime, IP addresses, host/node,..."
+  annotations:
+    github.com/project-slug: stuttgart-things/claude-plugins
+    backstage.io/source-location: url:https://github.com/stuttgart-things/claude-plugins/tree/main/plugins/portal/skills/portal-vm-status/
+  tags:
+    - claude-code
+    - skill
+    - portal
+spec:
+  type: skill
+  lifecycle: experimental
+  owner: group:default/platform-team
+  agents:
+    - claude-code
+---
+apiVersion: backstage.io/v1alpha1
+kind: AiResource
+metadata:
+  name: portal-plugin
+  title: "portal@stuttgart-things"
+  description: "Ask the stuttgart-things developer portal (Backstage MCP server): owners, systems, docs, templates and live VM state"
+  annotations:
+    github.com/project-slug: stuttgart-things/claude-plugins
+    backstage.io/source-location: url:https://github.com/stuttgart-things/claude-plugins/tree/main/plugins/portal/
+  tags:
+    - claude-code
+    - plugin
+spec:
+  type: plugin
+  lifecycle: experimental
+  owner: group:default/platform-team
+  version: "0.1.0"
+  skills:
+    - airesource:default/portal-lookup
+    - airesource:default/portal-templates
+    - airesource:default/portal-vm-status
+---
+apiVersion: backstage.io/v1alpha1
+kind: AiResource
+metadata:
+  name: stuttgart-things-claude-plugins
+  title: stuttgart-things Claude Code marketplace
+  description: "Claude Code plugins for stuttgart-things: service development and release, LabUL Proxmox operations, the developer portal"
+  annotations:
+    github.com/project-slug: stuttgart-things/claude-plugins
+    backstage.io/source-location: url:https://github.com/stuttgart-things/claude-plugins/tree/main/
+  tags:
+    - claude-code
+    - marketplace
+  links:
+    - url: https://github.com/stuttgart-things/claude-plugins
+      title: Install with /plugin marketplace add stuttgart-things/claude-plugins
+      icon: github
+spec:
+  type: marketplace
+  lifecycle: experimental
+  owner: group:default/platform-team
+  plugins:
+    - airesource:default/sthings-dev-plugin
+    - airesource:default/labul-plugin
+    - airesource:default/portal-plugin
